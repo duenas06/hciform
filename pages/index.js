@@ -61,12 +61,6 @@ export default function Home() {
       }
       else {
         onOpen()
-
-        setFname("");
-        setLname("");
-        setMname("");
-        setMnumber("");
-        setEmail("");
       }
   }
   return (
