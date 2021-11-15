@@ -4,13 +4,6 @@ import Colors from "../src/Constants/Colors";
 import useWindowSize from "../src/CustomHooks/UseWindows";
 import React, {useContext, useEffect, useState } from "react";
 import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Input
-} from "@chakra-ui/react"
-import {
   Modal,
   ModalOverlay,
   ModalContent,
@@ -22,6 +15,14 @@ import {
   useDisclosure,
   useToast
 } from "@chakra-ui/react"
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+  Input
+} from "@chakra-ui/react"
+
 
 export default function Home() {
   const getWindowSize = useWindowSize();
@@ -33,15 +34,6 @@ export default function Home() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast();
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    // clearing the values
-    setFname("");
-    setLname("");
-    setMname("");
-    setMnumber("");
-    setEmail("");
-  }
   async function submit()
   {
     if(
@@ -63,6 +55,17 @@ export default function Home() {
         onOpen()
       }
   }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    // clearing the values
+    setFname("");
+    setLname("");
+    setMname("");
+    setMnumber("");
+    setEmail("");
+  }
+
   return (
     <>
       <Head>
@@ -73,7 +76,25 @@ export default function Home() {
       <Flex {...styleProps.indexWrapper} >
 
         <Flex flexDirection={getWindowSize.width < 960 ? "column" : "row"}>
-        
+        <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Personal Information</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+              <Text>First Name: {Fname}</Text>
+              <Text>Last Name: {Lname}</Text>
+              <Text>Middle name: {Mname}</Text>
+              <Text>Mobile Number: {Mnumber}</Text>
+              <Text>Email Address: {Email}</Text>
+              </ModalBody>
+              <ModalFooter>
+                <Button colorScheme="blue" mr={1} onClick={onClose}>
+                  Close
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
         </Flex>
         <Flex
           w={
@@ -141,25 +162,7 @@ export default function Home() {
           </HStack>
         </Flex>
           
-        <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Personal Information</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-              <Text>First Name: {Fname}</Text>
-              <Text>Last Name: {Lname}</Text>
-              <Text>Middle name: {Mname}</Text>
-              <Text>Mobile Number: {Mnumber}</Text>
-              <Text>Email Address: {Email}</Text>
-              </ModalBody>
-              <ModalFooter>
-                <Button colorScheme="blue" mr={1} onClick={onClose}>
-                  Close
-                </Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
+   
       </Flex>
     </>
   );
